@@ -6,7 +6,7 @@ commands:
 jobs:
   my_job:
     docker:
-      - image: cicleci/node:13.8.0
+      - image: circleci/node:13.8.0
     steps:
       - run: return 1
       - run:
