@@ -1,11 +1,11 @@
 version: 2.1
 jobs:
-  create_infracturcure:
+  create_infrastructure:
     docker:
       - image: amazon/aws-cli
     steps:
       - checkout
-      - run: aws cloudformation create-stack --stack-name udacity --template-body template.yml
+      - run: aws cloudformation deploy --stack-name udacity --template-body template.yml
 workflows:
   my_workflow:
     jobs:
