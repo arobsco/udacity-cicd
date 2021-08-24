@@ -1,19 +1,12 @@
 version: 2.1
-commands:
-  print_pipeline_id:
-    steps:
-      - run: echo ${CIRCLE_WORKFLOW_ID}
 jobs:
-  my_job:
+  create_infracturcure:
     docker:
-      - image: circleci/node:13.8.0
+      - image: amazon/aws-cli
     steps:
-      - run: return 1
-      - run:
-          name: failed
-          command: echo "An error occurred"
-          when: on_fail
+      - checkout
+      - run: aws cloudformation create-stack --stack-name udacity --template-body template.yml
 workflows:
-  build-test-deploy:
+  my_workflow:
     jobs:
-      - my_job
+      - create_infrastructure
