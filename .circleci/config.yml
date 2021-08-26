@@ -41,11 +41,12 @@ jobs:
           name: smoke test
           command: |
             return 1
-      - destroy_environment
+      - destroy_environment:
           when: on_fail
 workflows:  
   my_workflow:
     jobs:
+      - create_infrastructure
       - smoke_test:
           requires:
             - create_infrastructure
