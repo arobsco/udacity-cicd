@@ -9,7 +9,22 @@ jobs:
           name: create infra
           command: |
             aws cloudformation deploy --template-file template.yml --stack-name my-stack
+  configure_infrastructure:
+    docker:
+      - image: python3.7-alpine3.11
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints: ["08:eb:cd:cd:1e:05:14:af:22:81:3f:e2:7e:dd:fb:28"]
+      - run:
+          name: Install deps
+          command: |
+            apk add --update ansible
+      - run:
+          name: conf server
+          command: |
+            ansible-playbook -i inventory main-remote.yml
 workflows:  
   my_workflow:
     jobs:
-      - create_infrastucture
+      - configure_infrastructure
